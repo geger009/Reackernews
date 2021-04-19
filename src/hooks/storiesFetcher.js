@@ -11,6 +11,7 @@ const useStoriesFetcher = (type, page) => {
     getStories(type, page)
       .then((stories) => {
         setStories(stories)
+        console.log(stories)
         setIsLoading(false)
       })
       .catch(() => {

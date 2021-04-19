@@ -1,41 +1,17 @@
+import url from 'url'
+
 export const STORY_LENGTH = 30;
 
-export const convertToTimeAgo = (time) => {
-  console.log(new Date(time))
-  var seconds = Math.floor(time / 1000);
-  var interval = seconds / 31536000;
-
-  if (interval > 1) {
-    return Math.floor(interval) + " years ago";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " months ago";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days ago";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hours ago";
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " minutes ago";
-  }
-  return Math.floor(seconds) + " seconds ago";
-}
-
-/* export const convertNumberToTimeAgo = (time) => {
+export const convertToTimeAgo = (unixtime) => {
+  const time = +new Date(unixtime * 1000)
   const now = +new Date()
   const timeAgo = now - time
 
-  const ONE_YEAR = 3.154e10
-  const ONE_MONTH = 2.628e9
-  const ONE_DAY = 8.64e7
-  const ONE_HOUR = 3.6e6
-  const ONE_MINUTE = 60000
+  const ONE_MINUTE = 60 * 1000
+  const ONE_HOUR = 60 * ONE_MINUTE
+  const ONE_DAY = 24 * ONE_HOUR
+  const ONE_MONTH = 30.5 * ONE_DAY
+  const ONE_YEAR = 12 * ONE_MONTH
 
   if (timeAgo >= ONE_YEAR * 2) {
     return `${ Math.floor(timeAgo / ONE_YEAR) } years ago`
@@ -60,4 +36,22 @@ export const convertToTimeAgo = (time) => {
   } else  {
     return ''
   }
-} */
+}
+
+export const getHostName = (siteUrl) => {
+  let hostname = ''
+
+  if (siteUrl) {
+    if (!siteUrl.includes('//')) {
+      siteUrl = `http://${siteUrl}`
+    }
+
+    hostname = url.parse(siteUrl).hostname
+  }
+
+  if (hostname.includes('www.')) {
+    hostname = hostname.split('www.')[1]
+  }
+
+  return hostname
+}

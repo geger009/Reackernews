@@ -8,7 +8,6 @@ const UserDetail = (props) => {
   const { userid } = props.match.params
   const { isLoading, userData } = useUserFetcher(userid)
 
-  console.log(userData)
   return (
     <>
       { isLoading ? (

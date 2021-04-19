@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { STORY_LENGTH } from './helper'
 
-const getStory = async (id) => {
+export const getStory = async (id) => {
   try {
     const story = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
     return story
