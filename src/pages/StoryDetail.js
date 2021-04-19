@@ -19,11 +19,24 @@ const StoryDetail = ({ id }) => {
           <Media className="mb-4">
             <Media.Body>
               <h3 className="mb-1">
-                <Link url={ story.url } title={ story.title } />
-                { ' ' }
-                <span className="text-muted text-h6">{ `[${ getHostName(story.url) }]` }</span>
+                {
+                  story.url ? (
+                    <>
+                      <Link url={ story.url } title={ story.title } />
+                      { ' ' }
+                      <span className="text-muted text-h6">{ `[${ getHostName(story.url) }]` }</span>
+                    </>
+                  ) : story.title
+                }
               </h3>
               <span className="text-muted font-italic" style={{ fontSize: '14px'}}>{ `created ${ convertToTimeAgo(story.time) }` }</span>
+              {
+                story.text ? (
+                  <p className="my-2" dangerouslySetInnerHTML={{ __html: story.text }}></p>
+                ) : (
+                  <></>
+                )
+              }
             </Media.Body>
             <div className="text-center p-2 m-2 text-muted" style={{height: '100%'}}>
               <p className="font-italic mb-1" style={{ fontSize: '11px'}}>{ `${ story.score > 1 ? 'Points' : 'Point' }` }</p>

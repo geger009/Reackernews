@@ -4,17 +4,26 @@ import { Card } from 'react-bootstrap'
 import Link from './Link'
 import { getHostName, convertToTimeAgo } from '../utils/helper'
 
-const Story = ({ story: { id, by, title, kids, time, url, score } }) => {
-  const hostName = getHostName(url)
+const Story = ({ story: { id, by, title, kids, time, url, score, text } }) => {
+  const hostName = url ? getHostName(url) : ''
+  const link = url ? url : `/item/${id}`
 
   return (
     <>
       <Card className="mb-2">
         <Card.Body>
           <Card.Title>
-            <Link url={ url } title={ title } />
-            { ' ' }
-            <span className="text-muted" style={{ fontSize: '11px' }}>{ `[${hostName}]` }</span>
+            {
+              url ? (
+                <>
+                  <Link url={ url } title={ title } />
+                  { ' ' }
+                  <span className="text-muted" style={{ fontSize: '11px' }}>{ `[${hostName}]` }</span>
+                </>
+              ) : (
+                <a href={link}>{title}</a>
+              )
+            }
           </Card.Title>
           <Card.Subtitle>
             { score }

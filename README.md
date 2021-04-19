@@ -57,6 +57,17 @@ reackernews/
   yarn.lock
 ```
 
+## Feature
+- Display Top Stories
+- Display New Stories
+- Display Best Stories
+- Display Ask Stories
+- Display Show Stories
+- Display Job Stories
+- Display User Detail
+- Display Story Detail
+- Pagination
+
 ## Build Setup
 
 Requires Node.js 12+

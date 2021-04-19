@@ -14,15 +14,15 @@ const AppRouter = () => {
 
       <Container className="pt-4">
         <Switch>
-          <Route path="/" render={() => <Redirect to="/top" />} exact={true} />
+          <Route path="/" render={() => <Redirect to="/story/top/1" />} exact={true} />
           <Route
-            path="/:type"
+            path="/story/:type/:page"
             render={({ match }) => {
-              const { type } = match.params
+              const { type, page } = match.params
               if (!['top', 'new', 'best', 'ask', 'show', 'job'].includes(type)) {
                 return <Redirect to="/" />
               }
-              return <ShowStories type={ type } />
+              return <ShowStories type={ type } page={ page } />
             }}
             exact={ true }
           />

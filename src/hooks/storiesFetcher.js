@@ -3,15 +3,16 @@ import { getStories } from '../utils/apis'
 
 const useStoriesFetcher = (type, page) => {
   const [stories, setStories] = useState([])
+  const [totalPage, setTotalPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setIsLoading(true)
 
     getStories(type, page)
-      .then((stories) => {
+      .then(({ totalPage, stories }) => {
+        setTotalPage(totalPage)
         setStories(stories)
-        console.log(stories)
         setIsLoading(false)
       })
       .catch(() => {
@@ -19,7 +20,7 @@ const useStoriesFetcher = (type, page) => {
       })
   }, [type, page])
 
-  return { isLoading, stories }
+  return { isLoading, stories, totalPage }
 }
 
 export default useStoriesFetcher

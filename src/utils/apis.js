@@ -15,8 +15,9 @@ export const getStories = async (type, page) => {
     const { data: storyIds } = await axios.get(
       `https://hacker-news.firebaseio.com/v0/${type}stories.json`
     )
+    const totalPage = Math.ceil(storyIds.length / STORY_LENGTH)
     const stories = await Promise.all(storyIds.slice((STORY_LENGTH * (page - 1)), (STORY_LENGTH * page)).map(getStory))
-    return stories
+    return { totalPage, stories }
   } catch (error) {
     console.log('Error while getting list of stories.', error)
   }
